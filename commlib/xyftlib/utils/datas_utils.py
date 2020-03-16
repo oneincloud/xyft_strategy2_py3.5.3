@@ -7,6 +7,7 @@ import os
 from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
 from commlib.xyftlib.grabs.grab_base import GrabBase
+from commlib.xyftlib.grabs.grab_huangjia import GrabHuangjia
 from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
 import pandas as pd
@@ -36,18 +37,7 @@ class DatasUtils():
         # 可用爬虫
         grabs = ['huangjia', 'zhibo']
 
-        grab = None
-
-        # import爬虫处理器
-        try:
-            className = "Grab{}".format(grabName.capitalize())
-            moduleName = "grab_{}".format(grabName)
-            mod = importlib.import_module("commlib.xyftlib.grabs.{}".format(moduleName))
-
-            grab = getattr(mod, className)()
-        except Exception as e:
-            print(e)
-            pass
+        grab = GrabHuangjia()
 
         return grab
 
