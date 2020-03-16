@@ -49,10 +49,14 @@ class DatasUtils():
                 print(e)
                 pass
 
-        if grabName is not None and grabName in grabInstances:
-            return grabInstances[grabName]
+        # if grabName is not None and grabName in grabInstances:
+        #     print("pppp1")
+        #     return grabInstances[grabName]
+        # else:
+        #     print("pppp2")
 
-        return grabInstances
+        # return grabInstances
+        return grabInstances[grabName]
 
     @classmethod
     def isWorking(cls,current = None):
