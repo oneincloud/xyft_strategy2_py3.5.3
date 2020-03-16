@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QMainWindow,QMessageBox,QTableWidgetItem
-from PyQt5.Qt import QThread,pyqtSignal,QTimer
+from PyQt5.Qt import QThread,pyqtSignal,QTimer,QBrush,QColor
 from PyQt5.QtCore import Qt
 from client.resource.ui.Strategy2MainWindow_UI import Ui_MainWindow
 import datetime
