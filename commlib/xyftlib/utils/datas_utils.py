@@ -36,27 +36,20 @@ class DatasUtils():
         # 可用爬虫
         grabs = ['huangjia', 'zhibo']
 
+        grab = None
+
         # import爬虫处理器
-        grabInstances = {}
-        for grab in grabs:
-            try:
-                className = "Grab{}".format(grab.capitalize())
-                moduleName = "grab_{}".format(grab)
-                mod = importlib.import_module("commlib.xyftlib.grabs.{}".format(moduleName))
+        try:
+            className = "Grab{}".format(grabName.capitalize())
+            moduleName = "grab_{}".format(grabName)
+            mod = importlib.import_module("commlib.xyftlib.grabs.{}".format(moduleName))
 
-                grabInstances[grab] = getattr(mod, className)()
-            except Exception as e:
-                print(e)
-                pass
+            grab = getattr(mod, className)()
+        except Exception as e:
+            print(e)
+            pass
 
-        # if grabName is not None and grabName in grabInstances:
-        #     print("pppp1")
-        #     return grabInstances[grabName]
-        # else:
-        #     print("pppp2")
-
-        # return grabInstances
-        return grabInstances[grabName]
+        return grab
 
     @classmethod
     def isWorking(cls,current = None):
@@ -291,6 +284,7 @@ class DatasUtils():
 
         # 爬取行情
         instance = cls.getGrabInstance('huangjia')
+
         records = instance.loadByDateList(dateList=dateList)
 
         # 将记录转换为DataFrame
