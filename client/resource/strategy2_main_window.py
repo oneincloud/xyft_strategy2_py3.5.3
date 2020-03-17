@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QMainWindow,QMessageBox,QTableWidgetItem
-from PyQt5.Qt import QThread,pyqtSignal,QTimer,QBrush,QColor
+from PyQt5.Qt import QThread,pyqtSignal,QTimer,QBrush,QColor,QPixmap
 from PyQt5.QtMultimedia import QSound
 from PyQt5.QtCore import Qt
 from client.resource.ui.Strategy2MainWindow_UI import Ui_MainWindow
@@ -11,6 +11,8 @@ import pandas as pd
 from commlib.xyftlib.utils.datas_utils import DatasUtils
 from commlib.xyftlib.datas_handle_hub import DatasHandleHub
 from commlib.xyftlib.pandas_model import PandasModel
+
+import frozen_dir
 
 class MyPandasModel(PandasModel):
 
@@ -45,6 +47,12 @@ class Strategy2MainWindow(QMainWindow,Ui_MainWindow):
         super(Strategy2MainWindow,self).__init__()
         self.setupUi(self)
 
+        # QMessageBox.information(self,'app_path',frozen_dir.app_path())
+        # QMessageBox.information(self,'resource_path',frozen_dir.resource_path())
+
+        self.app_path = frozen_dir.resource_path()
+
+
         self.prevAt = 161  # default:161
         self.prevLimit = 9  # default:9
 
@@ -53,6 +61,17 @@ class Strategy2MainWindow(QMainWindow,Ui_MainWindow):
 
         self.txtNx = [self.txtN1, self.txtN2, self.txtN3, self.txtN4, self.txtN5, self.txtN6, self.txtN7, self.txtN8,
                       self.txtN9, self.txtN10]
+
+        self.pixNum = []
+        for n in range(11):
+            # print("n = %d" % n)
+
+            if n > 0:
+                self.txtNx[n - 1].setScaledContents(True)
+                self.txtNx[n - 1].setPixmap(self.pixNum[0])
+
+            pix = QPixmap(self.app_path + r'\client\resource\images\Num_%d.png' % n)
+            self.pixNum.append(pix)
 
         self.currentOptionInfo = None  # 当前期数信息
         self.currentOptionIssue = 0  # 当前最新期号
@@ -93,19 +112,19 @@ class Strategy2MainWindow(QMainWindow,Ui_MainWindow):
         加载提示音效
         :return:
         '''
-        # self.soundLightMusic = QSound(r'client\resource\sounds\00_ligth_music.wav',self)  # 轻音乐
-        # self.soundWin = QSound(r'client\resource\sounds\01_win.wav',self)  # 中奖提示
-        # self.soundLoss = QSound(r'client\resource\sounds\01_loss.wav',self) # 全输提示
-        # self.soundAooo = QSound(r'client\resource\sounds\02_aooo.wav', self)  # 断网提示
-        # self.soundNewMessage = QSound(r'client\resource\sounds\03_new_message.wav', self)  # 提注提示
-        # self.soundIOSShort = QSound(r'client\resource\sounds\04_ios_short.wav', self)  # 提注提示
-        #
-        # self.soundZhoJi = QSound(r'client\resource\sounds\06_qibinghao_shengli.wav', self)  # 开始召集
+        self.soundLightMusic = QSound(self.app_path + r'\client\resource\sounds\00_ligth_music.wav',self)  # 轻音乐
+        self.soundWin = QSound(self.app_path + r'\client\resource\sounds\01_win.wav',self)  # 中奖提示
+        self.soundLoss = QSound(self.app_path + r'\client\resource\sounds\01_loss.wav',self) # 全输提示
+        self.soundAooo = QSound(self.app_path + r'\client\resource\sounds\02_aooo.wav', self)  # 断网提示
+        self.soundNewMessage = QSound(self.app_path + r'\client\resource\sounds\03_new_message.wav', self)  # 提注提示
+        self.soundIOSShort = QSound(self.app_path + r'\client\resource\sounds\04_ios_short.wav', self)  # 提注提示
+
+        self.soundZhoJi = QSound(self.app_path + r'\client\resource\sounds\06_qibinghao_shengli.wav', self)  # 开始召集
         #
         # # self.soundZhoJi.setLoops(5)
         # # self.soundZhoJi.play()
         #
-        # # self.soundLightMusic.play()
+        self.soundLightMusic.play()
         # # self.soundWin.play()
         # # self.soundAooo.play()
         # # self.soundNewMessage.play()
@@ -207,15 +226,15 @@ class Strategy2MainWindow(QMainWindow,Ui_MainWindow):
 
             # TODO： 新的开奖记录 ，发开提示声音
             print("TODO： 新的开奖记录 ，发开提示声音")
-            # self.soundIOSShort.play()
+            self.soundIOSShort.play()
 
             # 更新开奖记录显示
             self.txtLastOption.setText(str(newLastOptionIssue))
 
             for i in range(10):
                 col = "r" + str(i + 1)
-                self.txtNx[i].setText(str(df.iloc[0][i + 2]))
-                #self.txtNx[i].setPixmap(self.pixNum[df.iloc[0][i + 2]])
+                # self.txtNx[i].setText(str(df.iloc[0][i + 2]))
+                self.txtNx[i].setPixmap(self.pixNum[df.iloc[0][i + 2]])
 
     def datasUpdatedCall(self,datas):
         '''
@@ -224,7 +243,7 @@ class Strategy2MainWindow(QMainWindow,Ui_MainWindow):
         :return:
         '''
         if datas is None or len(datas) == 0:
-            # self.soundAooo.play()
+            self.soundAooo.play()
             return
 
         # 根据行情分析提示结果
@@ -279,8 +298,8 @@ class Strategy2MainWindow(QMainWindow,Ui_MainWindow):
             # 统计有变动即提示
             if len(counter) != self.tipsCounter:
                 # 提示变动
-                # self.soundNewMessage.play()
-                pass
+                self.soundNewMessage.play()
+                # pass
 
             # 记录新的计数
             self.tipsCounter = len(counter)
@@ -290,15 +309,15 @@ class Strategy2MainWindow(QMainWindow,Ui_MainWindow):
             if len(counter) > 0:
                 tips = "触发：%d期，符合结果：共 %d 目标" % (self.prevAt,len(counter))
                 if self.trigger > 0:
-                    # # self.soundWin.play()
-                    # self.soundZhoJi.setLoops(3)
-                    # self.soundZhoJi.play()
-                    pass
+                    # self.soundWin.play()
+                    self.soundZhoJi.setLoops(3)
+                    self.soundZhoJi.play()
+                    # pass
             else:
                 tips = "触发：%d期，符合结果：0 目标" % self.prevAt
                 if self.trigger > 0:
-                    # self.soundAooo.play()
-                    pass
+                    self.soundAooo.play()
+                    # pass
 
             self.trigger -= 1
             self.updateTableViewTips(counter)
@@ -377,12 +396,12 @@ class Strategy2MainWindow(QMainWindow,Ui_MainWindow):
 
             if lastRoundHasWin:
                 # 本轮有赢
-                # self.soundWin.play()
-                pass
+                self.soundWin.play()
+                # pass
             else:
                 # 本轮全输
-                # self.soundLoss.play()
-                pass
+                self.soundLoss.play()
+                # pass
         if tips != "":
             self.txtTips.setText(tips)
 
