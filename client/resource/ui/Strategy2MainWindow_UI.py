@@ -2,11 +2,13 @@
 
 # Form implementation generated from reading ui file 'Strategy2MainWindow.ui'
 #
-# Created by: PyQt5 UI code generator 5.8.2
+# Created by: PyQt5 UI code generator 5.13.0
 #
 # WARNING! All changes made in this file will be lost!
 
+
 from PyQt5 import QtCore, QtGui, QtWidgets
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -31,7 +33,6 @@ class Ui_MainWindow(object):
         self.widget.setStyleSheet("")
         self.widget.setObjectName("widget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.widget)
-        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.label_7 = QtWidgets.QLabel(self.widget)
         font = QtGui.QFont()
@@ -116,7 +117,6 @@ class Ui_MainWindow(object):
         self.widget_2.setStyleSheet("")
         self.widget_2.setObjectName("widget_2")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.widget_2)
-        self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.label = QtWidgets.QLabel(self.widget_2)
         font = QtGui.QFont()
@@ -289,7 +289,7 @@ class Ui_MainWindow(object):
         self.body.setStyleSheet("")
         self.body.setObjectName("body")
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.body)
-        self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_3.setContentsMargins(0, -1, 0, 0)
         self.horizontalLayout_3.setSpacing(0)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.widget_3 = QtWidgets.QWidget(self.body)
@@ -298,7 +298,7 @@ class Ui_MainWindow(object):
         self.widget_3.setStyleSheet("")
         self.widget_3.setObjectName("widget_3")
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.widget_3)
-        self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_3.setContentsMargins(0, 0, -1, 0)
         self.verticalLayout_3.setSpacing(0)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.widget_5 = QtWidgets.QWidget(self.widget_3)
@@ -307,7 +307,6 @@ class Ui_MainWindow(object):
         self.widget_5.setStyleSheet("background-color: rgb(255, 255, 0);")
         self.widget_5.setObjectName("widget_5")
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.widget_5)
-        self.horizontalLayout_4.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
         self.txtTips = QtWidgets.QLabel(self.widget_5)
         font = QtGui.QFont()
@@ -402,7 +401,7 @@ class Ui_MainWindow(object):
         self.widget_4.setStyleSheet("")
         self.widget_4.setObjectName("widget_4")
         self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.widget_4)
-        self.verticalLayout_4.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_4.setContentsMargins(-1, 0, 0, 0)
         self.verticalLayout_4.setObjectName("verticalLayout_4")
         self.tableTodayRecords = QtWidgets.QTableView(self.widget_4)
         font = QtGui.QFont()
@@ -491,5 +490,10 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "下半场胜"))
         item = self.tableTips.horizontalHeaderItem(7)
         item.setText(_translate("MainWindow", "下半场负"))
-
-
+        self.actionPasswd.setText(_translate("MainWindow", "修改登录密码"))
+        self.actionOpenStrategyAdd.setText(_translate("MainWindow", "新建策略"))
+        self.actionStrategyList.setText(_translate("MainWindow", "策略管理"))
+        self.actionOpenPasswd.setText(_translate("MainWindow", "修改密码"))
+        self.actionOpenStaffsDialog.setText(_translate("MainWindow", "员工管理"))
+        self.actionOpenAccountDialog.setText(_translate("MainWindow", "交易账号"))
+        self.actionOpenWebsiteDialog.setText(_translate("MainWindow", "网站管理"))

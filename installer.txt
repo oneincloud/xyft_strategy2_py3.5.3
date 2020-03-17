@@ -1,0 +1,3 @@
+pyinstaller -w -F -n "幸运飞艇-策略2" -i xyft.ico --clean strategy2_run.py
+pyinstaller -w -F -n "幸运飞艇-策略2" --clean strategy2_run.py
+pyinstaller -D -n "幸运飞艇-策略2" --clean strategy2_run.py
